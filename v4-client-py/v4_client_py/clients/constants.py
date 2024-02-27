@@ -3,10 +3,10 @@ from ..chain.aerial.config import NetworkConfig
 
 
 # ------------ API URLs ------------
-INDEXER_API_HOST_MAINNET = None
+INDEXER_API_HOST_MAINNET = 'https://indexer.dydx.trade'
 INDEXER_API_HOST_TESTNET = 'https://dydx-testnet.imperator.co'
 
-INDEXER_WS_HOST_MAINNET = None
+INDEXER_WS_HOST_MAINNET = 'wss://indexer.dydx.trade/v4/ws'
 INDEXER_WS_HOST_TESTNET = 'wss://indexer.v4testnet.dydx.exchange/v4/ws'
 
 FAUCET_API_HOST_TESTNET = 'https://faucet.v4testnet.dydx.exchange'
@@ -18,7 +18,7 @@ VALIDATOR_GRPC_MAINNET = None
 VALIDATOR_GRPC_TESTNET = 'dydx-testnet-archive.allthatnode.com:9090'
 
 # ------------ Ethereum Network IDs ------------
-NETWORK_ID_MAINNET = None
+NETWORK_ID_MAINNET = 'dydx-mainnet-1'
 NETWORK_ID_TESTNET = 'dydx-testnet-4'
 
 # ------------ Market Statistic Day Types ------------
@@ -119,7 +119,7 @@ class Network:
         env: str,
         validator_config: ValidatorConfig,
         indexer_config: IndexerConfig,
-        faucet_endpoint: str,
+        faucet_endpoint: str=None,
     ):
         self.env = env
         self.validator_config = validator_config

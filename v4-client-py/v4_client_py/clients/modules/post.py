@@ -21,6 +21,8 @@ class Post:
     ):
         self.config = config
         self.composer = Composer()
+        network = NetworkConfig.fetch_mainnet(config)
+        self.ledger = LedgerClient(network)
 
     def send_message(
         self,
@@ -43,14 +45,12 @@ class Post:
         '''
 
         wallet = subaccount.wallet
-        network = NetworkConfig.fetch_dydx_testnet()
-        ledger = LedgerClient(network)
         tx = Transaction()
         tx.add_message(msg)
         gas_limit = 0 if zeroFee else None
 
         return prepare_and_broadcast_basic_transaction(
-            client=ledger, 
+            client=self.ledger, 
             tx=tx, 
             sender=wallet, 
             gas_limit=gas_limit,

@@ -1,9 +1,13 @@
 
 """Network configurations."""
-
+from __future__ import annotations
 import warnings
 from dataclasses import dataclass
-from typing import Optional, Union
+from typing import Optional, Union, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from v4_client_py.clients.constants import ValidatorConfig
+
 
 class NetworkConfigError(RuntimeError):
     """Network config error.
@@ -111,14 +115,14 @@ class NetworkConfig:
         return cls.fetch_dydx_testnet()
 
     @classmethod
-    def fetchai_mainnet(cls) -> "NetworkConfig":
+    def fetchai_mainnet(cls, config: ValidatorConfig) -> "NetworkConfig":
         """Get the fetchai mainnet configuration.
 
         :return: fetch mainnet configuration
         """
         return NetworkConfig(
-            chain_id="fetchhub-4",
-            url="grpc+https://grpc-fetchhub.fetch.ai",
+            chain_id=config.chain_id,
+            url=config.grpc_endpoint,
             fee_minimum_gas_price=0,
             fee_denomination="afet",
             staking_denomination="afet",
@@ -126,7 +130,7 @@ class NetworkConfig:
         )
 
     @classmethod
-    def fetch_mainnet(cls) -> "NetworkConfig":
+    def fetch_mainnet(cls, config: ValidatorConfig) -> "NetworkConfig":
         """Get the fetch mainnet.
 
         :return: fetch mainnet configurations
@@ -135,7 +139,7 @@ class NetworkConfig:
             "fetch_mainnet is deprecated, use fetchai_mainnet instead",
             DeprecationWarning,
         )
-        return cls.fetchai_mainnet()
+        return cls.fetchai_mainnet(config)
 
     @classmethod
     def latest_stable_testnet(cls) -> "NetworkConfig":
