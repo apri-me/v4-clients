@@ -122,7 +122,7 @@ class NetworkConfig:
         """
         return NetworkConfig(
             chain_id=config.chain_id,
-            url="grpc+"config.grpc_endpoint,
+            url="grpc+"+config.grpc_endpoint,
             fee_minimum_gas_price=0,
             fee_denomination="afet",
             staking_denomination="afet",
